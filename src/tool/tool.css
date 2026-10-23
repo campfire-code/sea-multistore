@@ -1,0 +1,20 @@
+/* 东南亚多店调度：只用 kit.css 的变量，类名以 ms- 开头。 */
+.ms-root { flex: 1; min-height: 0; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+.ms-side { flex: 0 1 340px; min-width: 280px; padding: 14px 16px; display: grid; gap: 10px; }
+.ms-main { flex: 1 1 420px; min-width: 0; padding: 14px 16px; display: grid; gap: 12px; align-content: start; min-height: 320px; }
+.ms-side .k-section { margin: 6px 0 0; }
+.ms-risk { font-size: .88em; margin: 0; padding: 8px 10px; border-radius: var(--radius); background: var(--side); line-height: 1.55; }
+.ms-warn { display: flex; gap: 6px; align-items: center; font-size: .9em; margin: 0; color: var(--warn); }
+.ms-note { font-size: .88em; margin: 0; }
+.ms-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ms-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; max-height: 160px; overflow: auto; }
+.ms-list li { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .9em; }
+.ms-sum { display: grid; grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); gap: 12px; }
+.ms-sum > div { display: grid; gap: 2px; padding: 10px 12px; border-radius: var(--radius); background: var(--side); }
+.ms-sum b { font-size: 1.35em; line-height: 1.2; }
+.ms-sum .k-muted { font-size: .85em; }
+.ms-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ms-bar .k-seg { flex: 0 0 auto; }
+.ms-file { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.ms-table { max-height: 380px; }
+.ms-flag { color: var(--warn); font-size: .9em; }
