@@ -48,15 +48,15 @@ describe('导出', () => {
     const sheets = await readSheets(files.get(path)!, 'r.xlsx');
     expect(sheets.map((s) => s.name)).toEqual(['店铺汇总', 'SKU 对照', '说明']);
     const head = sheets[0].grid[0] as string[];
-    expect(head).toContain('折算后 GMV');
+    expect(head).toContain('折算后成交额');
     const row = sheets[0].grid[1];
-    expect(row[head.indexOf('折算后 GMV')]).toBe(211.47);
+    expect(row[head.indexOf('折算后成交额')]).toBe(211.47);
     expect(row[head.indexOf('断货 SKU')]).toBe(1);
   });
   it('没填汇率时没有折算列', async () => {
     const o = await loadSource(sample('lazada-示例店B-订单.csv'), 'a.csv', meta({ platform: 'lazada', store: 'B' }));
     const { io, files } = memIo();
     const p = await exportReport([o], DEFAULT_OPTS, io, '/o', new Date());
-    expect((await readSheets(files.get(p)!, 'r.xlsx'))[0].grid[0]).not.toContain('折算后 GMV');
+    expect((await readSheets(files.get(p)!, 'r.xlsx'))[0].grid[0]).not.toContain('折算后成交额');
   });
 });

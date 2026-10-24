@@ -26,7 +26,7 @@ export async function exportReport(sources: Source[], opts: Opts, io: Io, outDir
   const m = skuMatrix(sources, opts);
   const hasConv = stores.some((s) => s.gmvConverted != null);
   const sheets = [
-    { name: '店铺汇总', header: ['店铺', '平台', '币种', '有效订单', '取消订单', 'GMV（本币）', '客单价', ...(hasConv ? ['汇率', '折算后 GMV'] : []), 'SKU 数', '库存件数', '低库存 SKU', '断货 SKU'],
+    { name: '店铺汇总', header: ['店铺', '平台', '币种', '有效订单', '取消订单', '成交额（本币）', '客单价', ...(hasConv ? ['汇率', '折算后成交额'] : []), 'SKU 数', '库存件数', '低库存 SKU', '断货 SKU'],
       rows: stores.map((s) => [s.store, platformName(s.platform), s.currency, s.orders, s.cancelled, s.gmv, s.aov, ...(hasConv ? [s.rate > 0 ? s.rate : null, s.gmvConverted] : []), s.skus, s.units, s.low, s.out]),
       formats: ['text', 'text', 'text', 'int', 'int', 'money', 'money', ...(hasConv ? ['money' as const, 'money' as const] : []), 'int', 'int', 'int', 'int'] as ('money' | 'int' | 'text')[] },
     { name: 'SKU 对照', header: ['SKU', '商品名称', '总库存', ...m.stores.flatMap((s) => [`${s.label} 库存`, `${s.label} 价格`]), '提示'],
@@ -34,7 +34,7 @@ export async function exportReport(sources: Source[], opts: Opts, io: Io, outDir
     { name: '说明', header: ['项目', '内容'], rows: [
       ['生成时间', now.toISOString().slice(0, 16).replace('T', ' ')], ['数据来源', '用户导入的各平台后台导出表格，未调用任何平台接口'],
       ['低库存线', `库存 ≤ ${opts.lowStock} 件`], ['价格差异线', `同币种店铺间相差 > ${opts.spreadPct}%`],
-      ['订单口径', '同订单号多行只算一单；状态含「取消 / 退款 / cancel / refund」等字样的不计入 GMV 和客单价'], ['汇总币种', hasConv ? '折算汇率由用户填写' : '未填写汇率，各币种不折算、不相加'],
+      ['订单口径', '同订单号多行只算一单；状态含「取消、退款、关闭、失败」等字样（中英文都识别）的不计入成交额和客单价'], ['汇总币种', hasConv ? '折算汇率由用户填写' : '未填写汇率，各币种不折算、不相加'],
     ] },
   ];
   await io.mkdir(outDir);
